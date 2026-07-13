@@ -1168,6 +1168,7 @@ with tab_fleet:
                         st.session_state.fleet.loc[mask, "Longitude"] = new_lon
                         st.success(f"Coordinates updated for {coord_name}.")
                         st.rerun()
+                        
     fleet_edit = st.data_editor(
         st.session_state.fleet.copy(),
         num_rows="dynamic",
