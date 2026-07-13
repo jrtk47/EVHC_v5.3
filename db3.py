@@ -1159,6 +1159,6 @@ with tab_fleet:
 
 st.markdown(
     f'<div style="text-align:center;color:#94a3b8;font-size:11px;margin-top:32px;padding-top:12px;border-top:1px solid {BORDER};">'
-    f'PEA กฟก.2 EV Hosting Capacity Tool</div>',
+    f'PEA กฟก.2 EV Hosting Capacity Tool | Smart Grid Division</div>',
     unsafe_allow_html=True
 )
