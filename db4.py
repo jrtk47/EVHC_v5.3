@@ -958,8 +958,9 @@ with tab_analysis:
                 hc_raw, hc_adj = predict_and_adjust(feats, peak_hour, user_weights, tr_rated, model, xgb_residual, scaler)
 
             status, badge_cls = classify(hc_adj)
-            n_cars_daily = int(hc_adj // 7.4)
-            n_cars_simultaneous = int(max(feats['Capacity_Headroom_kVA'], 0) // 7.4)
+            _effective_avg_kw = user_avg_kw if user_avg_kw > 0 else BASE_AVG_KW
+            n_cars_daily = int(hc_adj // _effective_avg_kw)
+            n_cars_simultaneous = int(max(feats['Capacity_Headroom_kVA'], 0) // _effective_avg_kw)
             pea_id = active_id
             
             _, matched_by_single = lookup_rated_kva(pea_id, tr_rated)
