@@ -720,6 +720,21 @@ with tab_analysis:
     if "tr_rated_input" not in st.session_state:
         st.session_state.tr_rated_input = float(prefill_row["Rated_kVA"]) if (prefill_row is not None and pd.notna(prefill_row["Rated_kVA"])) else 160.0
 
+    # Pre-read the inspect-picker's persisted widget value (if any) *before* the
+    # sidebar renders the Nameplate kVA selectbox below. Streamlit updates
+    # st.session_state["_inspect_pick"] as soon as the user picks a new option,
+    # before the script reruns — so reading it here reflects the just-made
+    # selection. Applying a verified-match kVA override at this point lands in
+    # the SAME pass that renders the Nameplate kVA selectbox, avoiding the
+    # extra st.rerun() that used to be needed when this check ran later.
+    _early_inspect_pick = st.session_state.get("_inspect_pick")
+    _cached_names_early = sorted(st.session_state.fleet_files.keys())
+    if _early_inspect_pick in _cached_names_early and st.session_state.get("_last_inspect_pick") != _early_inspect_pick:
+        st.session_state._last_inspect_pick = _early_inspect_pick
+        _row = st.session_state.fleet[st.session_state.fleet["Name"] == _early_inspect_pick]
+        if not _row.empty and pd.notna(_row.iloc[0]["Rated_kVA"]) and bool(_row.iloc[0].get("Rated_Verified", False)):
+            st.session_state.tr_rated_input = float(_row.iloc[0]["Rated_kVA"])
+
     with st.sidebar:
         st.markdown(t("cfg_header", lang))
 
@@ -884,12 +899,6 @@ with tab_analysis:
         inspect_pick = st.selectbox(
             t("inspect_label", lang), cached_names, index=default_idx, key="_inspect_pick"
         )
-        if st.session_state.get("_last_inspect_pick") != inspect_pick:
-            st.session_state._last_inspect_pick = inspect_pick
-            row = st.session_state.fleet[st.session_state.fleet["Name"] == inspect_pick]
-            if not row.empty and pd.notna(row.iloc[0]["Rated_kVA"]) and bool(row.iloc[0].get("Rated_Verified", False)):
-                st.session_state.tr_rated_input = float(row.iloc[0]["Rated_kVA"])
-                st.rerun()
 
     active_bytes = None
     active_id = None
