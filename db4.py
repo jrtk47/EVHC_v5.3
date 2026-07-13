@@ -446,7 +446,7 @@ def predict_and_adjust(features: dict, peak_hour: float, user_weights: list, tr_
     return hc_raw, hc_adj
 
 
-def run_scenario_monte_carlo(base_profile_kva, tr_rating_kva, weights, peak_hour, n_iter=200):
+def run_scenario_monte_carlo(base_profile_kva, tr_rating_kva, weights, peak_hour, n_iter=1000):
     base_profile_kva = np.copy(base_profile_kva)
     simulated_hc_kw = []
     traces = []
