@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).parent
 # ══════════════════════════════════════════════════════════════
 TRANSLATIONS = {
     "hdr_eyebrow":       {"EN": "PEA กฟก.2 · Chonburi Grid", "TH": "PEA กฟก.2 · จังหวัดชลบุรี"},
-    "hdr_title":         {"EN": "EV Hosting Capacity Predictor", "TH": "EV Hosting Capacity Predictor"},
+    "hdr_title":         {"EN": "Transformer-level EV Hosting Capacity Predictor", "TH": "Transformer-level EV Hosting Capacity Predictor"},
     "hdr_sub":           {"EN": "Hybrid Ensemble ML Engine (RidgeCV + XGBoost Residuals) · LOGO-CV Validated",
                            "TH": "โมเดล Hybrid Ensemble (RidgeCV + XGBoost Residuals) · ตรวจสอบยืนยันด้วย LOGO-CV"},
     "tab_fleet":         {"EN": "🗺️  Fleet Overview", "TH": "🗺️  ภาพรวมกลุ่มหม้อแปลง"},
