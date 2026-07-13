@@ -33,7 +33,7 @@ TRANSLATIONS = {
     "cfg_header":        {"EN": "### Configuration", "TH": "### การตั้งค่า"},
     "sb1_title":         {"EN": "1 · Ratings Master CSV (Tier 1)", "TH": "1 · ไฟล์ Master พิกัดหม้อแปลง (ลำดับ 1)"},
     "sb1_caption":       {"EN": "Upload once per session: a CSV with PEA No / DTMS No and their kVA rating.",
-                           "TH": "อัปโหลดครั้งเดียวต่อ session: ไฟล์ CSV ที่มีเลข PEA No / DTMS No และพิกัด kV"},
+                           "TH": "อัปโหลดครั้งเดียวต่อ session: ไฟล์ CSV ที่มีเลข PEA No / DTMS No และพิกัด kVA"},
     "sb1_uploader":      {"EN": "Upload ratings master CSV", "TH": "อัปโหลดไฟล์ Master พิกัด (CSV)"},
     "ratings_loaded":    {"EN": "Loaded {n} ratings.", "TH": "โหลดพิกัดแล้ว {n} รายการ"},
     "ratings_error":     {"EN": "Could not read reference file: {e}", "TH": "ไม่สามารถอ่านไฟล์อ้างอิงได้: {e}"},
