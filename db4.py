@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).parent
 # ══════════════════════════════════════════════════════════════
 TRANSLATIONS = {
     "hdr_eyebrow":       {"EN": "PEA กฟก.2 · Chonburi Grid", "TH": "PEA กฟก.2 · จังหวัดชลบุรี"},
-    "hdr_title":         {"EN": "Transformer-level EV Hosting Capacity Predictor", "TH": "Transformer-level EV Hosting Capacity Predictor"},
+    "hdr_title":         {"EN": "EV Hosting Capacity Predictor", "TH": "EV Hosting Capacity Predictor"},
     "hdr_sub":           {"EN": "Hybrid Ensemble ML Engine (RidgeCV + XGBoost Residuals) · LOGO-CV Validated",
                            "TH": "โมเดล Hybrid Ensemble (RidgeCV + XGBoost Residuals) · ตรวจสอบยืนยันด้วย LOGO-CV"},
     "tab_fleet":         {"EN": "🗺️  Fleet Overview", "TH": "🗺️  ภาพรวมกลุ่มหม้อแปลง"},
@@ -33,7 +33,7 @@ TRANSLATIONS = {
     "cfg_header":        {"EN": "### Configuration", "TH": "### การตั้งค่า"},
     "sb1_title":         {"EN": "1 · Ratings Master CSV (Tier 1)", "TH": "1 · ไฟล์ Master พิกัดหม้อแปลง (ลำดับ 1)"},
     "sb1_caption":       {"EN": "Upload once per session: a CSV with PEA No / DTMS No and their kVA rating.",
-                           "TH": "อัปโหลดครั้งเดียวต่อ session: ไฟล์ CSV ที่มีเลข PEA No / DTMS No และพิกัด kVA"},
+                           "TH": "อัปโหลดครั้งเดียวต่อ session: ไฟล์ CSV ที่มีเลข PEA No / DTMS No และพิกัด kV"},
     "sb1_uploader":      {"EN": "Upload ratings master CSV", "TH": "อัปโหลดไฟล์ Master พิกัด (CSV)"},
     "ratings_loaded":    {"EN": "Loaded {n} ratings.", "TH": "โหลดพิกัดแล้ว {n} รายการ"},
     "ratings_error":     {"EN": "Could not read reference file: {e}", "TH": "ไม่สามารถอ่านไฟล์อ้างอิงได้: {e}"},
@@ -1168,7 +1168,7 @@ with tab_fleet:
                         st.session_state.fleet.loc[mask, "Longitude"] = new_lon
                         st.success(f"Coordinates updated for {coord_name}.")
                         st.rerun()
-                        
+
     fleet_edit = st.data_editor(
         st.session_state.fleet.copy(),
         num_rows="dynamic",
