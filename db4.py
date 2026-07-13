@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).parent
 # ══════════════════════════════════════════════════════════════
 TRANSLATIONS = {
     "hdr_eyebrow":       {"EN": "PEA กฟก.2 · Chonburi Grid", "TH": "PEA กฟก.2 · จังหวัดชลบุรี"},
-    "hdr_title":         {"EN": "EV Hosting Capacity Predictor", "TH": "EV Hosting Capacity Predictor"},
+    "hdr_title":         {"EN": "Transformer-level EV Hosting Capacity Predictor"},
     "hdr_sub":           {"EN": "Hybrid Ensemble ML Engine (RidgeCV + XGBoost Residuals) · LOGO-CV Validated",
                            "TH": "โมเดล Hybrid Ensemble (RidgeCV + XGBoost Residuals) · ตรวจสอบยืนยันด้วย LOGO-CV"},
     "tab_fleet":         {"EN": "🗺️  Fleet Overview", "TH": "🗺️  ภาพรวมกลุ่มหม้อแปลง"},
@@ -938,7 +938,7 @@ with tab_analysis:
                     f"⚠️ **รูปแบบโหลดของหม้อแปลงนี้อาจไม่ใช่ประเภทที่อยู่อาศัย (Residential)** {method_note}\n\n"
                     + "\n".join(f"- {r}" for r in shape_check['reasons'])
                     + "\n\nโมเดล Hybrid Ensemble ถูกเทรนด้วยข้อมูลจากหม้อแปลงที่อยู่อาศัย 22 ลูกในเขต "
-                      "กฟภ. เขต 2 เท่านั้น ผลทำนาย HC ที่แสดงด้านล่างอาจไม่แม่นยำหากนำไปใช้กับหม้อแปลง"
+                      "กฟก. เขต 2 เท่านั้น ผลทำนาย HC ที่แสดงด้านล่างอาจไม่แม่นยำหากนำไปใช้กับหม้อแปลง"
                       "ประเภทอื่น (พาณิชย์ / อุตสาหกรรม / ผสม) — ควรตรวจสอบ feeder type จริงก่อนใช้ผลลัพธ์"
                 )
 
