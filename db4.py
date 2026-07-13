@@ -1153,19 +1153,21 @@ with tab_fleet:
                     st.session_state._coord_lat = float(row["Latitude"]) if pd.notna(row["Latitude"]) else CHONBURI_LAT
                     st.session_state._coord_lon = float(row["Longitude"]) if pd.notna(row["Longitude"]) else CHONBURI_LON
 
-                c1, c2 = st.columns(2)
-                with c1:
-                    new_lat = st.number_input("Latitude", value=st.session_state._coord_lat, key="_coord_lat", format="%.5f")
-                with c2:
-                    new_lon = st.number_input("Longitude", value=st.session_state._coord_lon, key="_coord_lon", format="%.5f")
+                with st.form("_coord_form", border=False):
+                    c1, c2 = st.columns(2)
+                    with c1:
+                        new_lat = st.number_input("Latitude", value=st.session_state._coord_lat, format="%.5f")
+                    with c2:
+                        new_lon = st.number_input("Longitude", value=st.session_state._coord_lon, format="%.5f")
 
-                if st.button("Apply", width='stretch'):
-                    mask = st.session_state.fleet["Name"] == coord_name
-                    st.session_state.fleet.loc[mask, "Latitude"] = new_lat
-                    st.session_state.fleet.loc[mask, "Longitude"] = new_lon
-                    st.success(f"Coordinates updated for {coord_name}.")
-                    st.rerun()
-
+                    if st.form_submit_button("Apply", width='stretch'):
+                        st.session_state._coord_lat = new_lat
+                        st.session_state._coord_lon = new_lon
+                        mask = st.session_state.fleet["Name"] == coord_name
+                        st.session_state.fleet.loc[mask, "Latitude"] = new_lat
+                        st.session_state.fleet.loc[mask, "Longitude"] = new_lon
+                        st.success(f"Coordinates updated for {coord_name}.")
+                        st.rerun()
     fleet_edit = st.data_editor(
         st.session_state.fleet.copy(),
         num_rows="dynamic",
