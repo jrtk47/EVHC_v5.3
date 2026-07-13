@@ -157,6 +157,7 @@ html, body, [class*="css"] {{ font-family: 'IBM Plex Sans Thai', sans-serif; col
 
 CHARGER_OPTIONS_KW = [3.7, 7.4, 11.0]
 BASE_AVG_KW        = 7.55
+EV_COUNT_CAP       = 100
 SPIKE_CLIP_KW      = 1000.0
 EV_CHARGER_PF      = 0.98
 
@@ -481,7 +482,7 @@ def run_scenario_monte_carlo(base_profile_kva, tr_rating_kva, weights, peak_hour
             ev_count += 1
             kw_trace.append(current_added_kw)
 
-            if ev_count > 40:
+            if ev_count > EV_COUNT_CAP:
                 break
 
         simulated_hc_kw.append(current_added_kw)
