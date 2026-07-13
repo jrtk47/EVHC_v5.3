@@ -748,13 +748,18 @@ with tab_analysis:
         )
         shift_utc = st.checkbox(t("shift_utc", lang), value=True)
 
+        st.session_state.setdefault("_uploader_gen", 0)
         uploaded = None
         batch_files = None
         if upload_mode == "Single transformer":
-            uploaded = st.file_uploader(t("single_uploader", lang), type=["csv"])
+            uploaded = st.file_uploader(
+                t("single_uploader", lang), type=["csv"],
+                key=f"_single_uploader_{st.session_state._uploader_gen}",
+            )
         else:
             batch_files = st.file_uploader(
-                t("batch_uploader", lang), type=["csv"], accept_multiple_files=True, key="_batch_uploader"
+                t("batch_uploader", lang), type=["csv"], accept_multiple_files=True,
+                key=f"_batch_uploader_{st.session_state._uploader_gen}",
             )
 
         pending_match_note = None
@@ -818,6 +823,9 @@ with tab_analysis:
         active_bytes = uploaded.getvalue()
         active_id = uploaded.name.replace('.csv', '')
         st.session_state.fleet_files[active_id] = (active_bytes, shift_utc)
+        st.session_state.jump_to_name = active_id
+        st.session_state._uploader_gen += 1
+        st.rerun()
 
     if batch_files:
         batch_signature = tuple(sorted(f.name for f in batch_files)) + (day_type, peak_hour, user_avg_kw, tr_rated)
@@ -858,6 +866,8 @@ with tab_analysis:
                 prog.progress((i + 1) / len(batch_files), text=f"Processed {i + 1}/{len(batch_files)}")
             prog.empty()
             st.session_state._batch_summary = batch_summary
+            st.session_state._uploader_gen += 1
+            st.rerun()
 
         if st.session_state.get("_batch_summary"):
             with st.expander(f"📦 Batch results ({len(st.session_state._batch_summary)} transformers)", expanded=False):
@@ -928,7 +938,7 @@ with tab_analysis:
                     f"⚠️ **รูปแบบโหลดของหม้อแปลงนี้อาจไม่ใช่ประเภทที่อยู่อาศัย (Residential)** {method_note}\n\n"
                     + "\n".join(f"- {r}" for r in shape_check['reasons'])
                     + "\n\nโมเดล Hybrid Ensemble ถูกเทรนด้วยข้อมูลจากหม้อแปลงที่อยู่อาศัย 22 ลูกในเขต "
-                      "กฟก. เขต 2 เท่านั้น ผลทำนาย HC ที่แสดงด้านล่างอาจไม่แม่นยำหากนำไปใช้กับหม้อแปลง"
+                      "กฟภ. เขต 2 เท่านั้น ผลทำนาย HC ที่แสดงด้านล่างอาจไม่แม่นยำหากนำไปใช้กับหม้อแปลง"
                       "ประเภทอื่น (พาณิชย์ / อุตสาหกรรม / ผสม) — ควรตรวจสอบ feeder type จริงก่อนใช้ผลลัพธ์"
                 )
 
